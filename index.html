@@ -4,16 +4,138 @@
   <meta charset="UTF-8">
   <title>Canteen Companion</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Container */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap; /* Allows items to wrap on small screens */
+  gap: 1rem;
+}
+
+/* Brand/Title */
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Navigation Menu */
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #e67e22; /* Orange accent color typical for food apps */
+}
+
+/* Controls Section */
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Inputs Styling */
+#searchInput, #dateSelect {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#searchInput:focus, #dateSelect:focus {
+  border-color: #e67e22;
+}
+
+#searchInput {
+  width: 200px;
+}
+
+#dateSelect {
+  cursor: pointer;
+  background-color: #f8f9fa;
+}
+
+/* Responsive Design (Mobile) */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .controls, .nav-menu {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .nav-list {
+    width: 100%;
+    justify-content: space-between; /* Spreads links out evenly */
+    padding: 10px 0;
+  }
+  
+  #searchInput {
+    width: 100%; /* Full width search on mobile */
+    flex-grow: 1;
+  }
+}
+    </style>
 </head>
 <body>
 
 <!-- HEADER -->
 <header class="header">
-  <h2 class="title">🍽️ Canteen Companion</h2>
+  <div class="brand">
+    <h1 class="title">🍽️ Canteen Companion</h1>
+  </div>
+
+  <nav class="nav-menu">
+    <ul class="nav-list">
+       <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About Us</a></li>
+      <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+      <li><a href="#reviews" class="nav-link">Reviews</a></li>
+    </ul>
+  </nav>
 
   <div class="controls">
-    <input type="text" id="searchInput" placeholder="Search food...">
-    <select id="dateSelect"></select>
+    <div class="search-wrapper">
+      <input type="search" id="searchInput" placeholder="Search food..." aria-label="Search for food items">
+    </div>
+    <select id="dateSelect" aria-label="Select Date">
+      <option value="today">Today</option>
+      <option value="tomorrow">Tomorrow</option>
+    </select>
   </div>
 </header>
 
@@ -247,5 +369,27 @@
 </footer>
 
 <script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateSelect = document.getElementById('dateSelect');
+      
+      // Clear existing options (if any)
+      dateSelect.innerHTML = '';
+
+      // Generate next 7 days
+      for (let i = 0; i < 7; i++) {
+          const date = new Date();
+          date.setDate(date.getDate() + i);
+          
+          const option = document.createElement('option');
+          // Format: YYYY-MM-DD for value
+          option.value = date.toISOString().split('T')[0];
+          // Format: "Fri, Jan 5" for display
+          option.textContent = i === 0 ? "Today" : date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+          
+          dateSelect.appendChild(option);
+      }
+  });
+  </script>
 </body>
 </html>

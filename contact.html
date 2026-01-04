@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us | Canteen Companion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Reset & Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Header Container */
+    .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    flex-wrap: wrap; /* Allows items to wrap on small screens */
+    gap: 1rem;
+    }
+
+    /* Brand/Title */
+    .title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    white-space: nowrap;
+    cursor: pointer;
+    }
+
+    /* Navigation Menu */
+    .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    }
+
+    .nav-link {
+    text-decoration: none;
+    color: #555;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+    color: #e67e22; /* Orange accent color typical for food apps */
+    }
+
+    /* Controls Section */
+    .controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    }
+
+    /* Inputs Styling */
+    #searchInput, #dateSelect {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.3s;
+    }
+
+    #searchInput:focus, #dateSelect:focus {
+    border-color: #e67e22;
+    }
+
+    #searchInput {
+    width: 200px;
+    }
+
+    #dateSelect {
+    cursor: pointer;
+    background-color: #f8f9fa;
+    }
+
+    /* Responsive Design (Mobile) */
+    @media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .controls, .nav-menu {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .nav-list {
+        width: 100%;
+        justify-content: space-between; /* Spreads links out evenly */
+        padding: 10px 0;
+    }
+    
+    #searchInput {
+        width: 100%; /* Full width search on mobile */
+        flex-grow: 1;
+    }
+    }
+
+
+    /* General Layout */
+    /* Base Styles */
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    .contact-page-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    /* Header Section */
+    .contact-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .contact-header h1 {
+        font-size: 2.5rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    /* Main Container (Split Layout) */
+    .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Left Column: Info */
+    .contact-info {
+        flex: 1;
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        color: white;
+        padding: 3rem;
+        min-width: 300px;
+    }
+
+    .contact-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e67e22;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 2rem;
+    }
+
+    .info-item i {
+        font-size: 1.5rem;
+        color: #e67e22; /* Orange accent */
+        margin-right: 15px;
+        margin-top: 5px;
+    }
+
+    .info-item h4 {
+        margin: 0 0 5px 0;
+        font-size: 1.1rem;
+    }
+
+    .info-item p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #bdc3c7;
+        line-height: 1.4;
+    }
+
+    /* Social Links */
+    .social-links {
+        margin-top: 3rem;
+    }
+
+    .social-links a {
+        color: white;
+        font-size: 1.5rem;
+        margin-right: 20px;
+        transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+        color: #e67e22;
+    }
+
+    /* Right Column: Form */
+    .form-container {
+        flex: 1.5;
+        padding: 3rem;
+        min-width: 300px;
+    }
+
+    .form-container h3 {
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .form-group input, 
+    .form-group select, 
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        outline: none;
+        font-family: inherit;
+    }
+
+    .form-group input:focus, 
+    .form-group select:focus, 
+    .form-group textarea:focus {
+        border-color: #e67e22; /* Highlight color */
+    }
+
+    /* Submit Button */
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #e67e22;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .submit-btn:hover {
+        background-color: #d35400;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .contact-container {
+            flex-direction: column;
+        }
+        
+        .contact-info, .form-container {
+            padding: 2rem;
+        }
+    }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <h1 class="title">🍽️ Canteen Companion</h1>
+  </div>
+
+  <nav class="nav-menu">
+    <ul class="nav-list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About Us</a></li>
+        <li><a href="contact.html" class="nav-link">Contact Us</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+    </ul>
+  </nav>
+
+  <div class="controls">
+    <div class="search-wrapper">
+      <input type="search" id="searchInput" placeholder="Search food..." aria-label="Search for food items">
+    </div>
+    <select id="dateSelect" aria-label="Select Date">
+      <option value="today">Today</option>
+      <option value="tomorrow">Tomorrow</option>
+    </select>
+  </div>
+</header>
+
+    <main class="contact-page-wrapper">
+        
+        <div class="contact-header">
+            <h1>Get in Touch</h1>
+            <p>Have a suggestion for a new feature? Are you a canteen owner interested in our platform? We'd love to hear from you.</p>
+        </div>
+
+        <div class="contact-container">
+            
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>Canteen Companion is a project developed by the Idea & Entrepreneurship Lab.</p>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Location</h4>
+                        <p>RCC Institute of Information Technology</p>
+                        <p>Dept. of Computer Science & Engineering (AI&ML)</p>
+                        <p>Kolkata, West Bengal, India</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h4>Email Us</h4>
+                        <p>support@canteencompanion.in</p>
+                        <p>collaboration@rcciit.org</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h4>Lab Hours</h4>
+                        <p>Mon - Fri: 10:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <form id="contactForm">
+                    <h3>Send a Message</h3>
+                    
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">I am a...</label>
+                        <select id="category">
+                            <option value="student">Student</option>
+                            <option value="faculty">Faculty Member</option>
+                            <option value="owner">Canteen Owner</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+
+        </div>
+    </main>
+    <footer class="footer">
+    © 2025 Canteen Companion | College Canteen Management System
+    </footer>
+    <script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateSelect = document.getElementById('dateSelect');
+      
+      // Clear existing options (if any)
+      dateSelect.innerHTML = '';
+
+      // Generate next 7 days
+      for (let i = 0; i < 7; i++) {
+          const date = new Date();
+          date.setDate(date.getDate() + i);
+          
+          const option = document.createElement('option');
+          // Format: YYYY-MM-DD for value
+          option.value = date.toISOString().split('T')[0];
+          // Format: "Fri, Jan 5" for display
+          option.textContent = i === 0 ? "Today" : date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+          
+          dateSelect.appendChild(option);
+      }
+  });
+  </script>
+</body>
+</html>
